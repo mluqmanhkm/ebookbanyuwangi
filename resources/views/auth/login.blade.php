@@ -23,10 +23,7 @@
                 <a href="./index.html" class="text-nowrap logo-img text-center d-block py-3 w-100">
                   <img src="../assets/images/logos/logo-dispusipbwi.png" width="180" alt="">
                 </a>
-                <p class="text-center">Welcome </p>
-                @if(session('error'))
-                <p>{{ session('error') }}</p>
-                @endif
+                <p class="text-center">Selamat Datang </p>
                 <form action="{{ route('login') }}" method="POST">
                     @csrf
                   <div class="mb-3">
@@ -55,10 +52,10 @@
                     </div>
                   </div>
                   <div class="d-flex align-items-center justify-content-between mb-4">
-                    <a class="text-primary fw-bold" href="#">Forgot Password ?</a>
-                    <span>Belum Daftar? <a class="text-primary fw-bold" href="#">Register</a></span>
+                    <a class="text-primary fw-bold" href="#">Lupa Password ?</a>
+                    <span>Belum Daftar? <a class="text-primary fw-bold" href="{{ route('register') }}">Daftar</a></span>
                   </div>
-                  <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-3 rounded-2">Sign In</button>
+                  <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-3 rounded-2">Masuk</button>
                   <span><a class="text-primary fw-bold" href="{{ route('/') }}">Kembali</a></span>
                 </form>
               </div>

@@ -4,9 +4,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ebook Web App</title>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <title>Ebook Web App | @yield('title')</title>
   <link rel="shortcut icon" type="image/png" href="../assets/images/logos/logo-bwi.png" />
   <link rel="stylesheet" href="../assets/css/styles.min.css" />
+  <link rel="stylesheet" href="../assets/css/flipbook.css" />
+  
+  <link rel="stylesheet" href="{{ url('plugins/datatables-bs4/css/dataTables.bootstrap5.min.css') }}">
+  <link rel="stylesheet" href="{{ url('plugins/datatables-responsive/css/responsive.bootstrap5.min.css') }}">
 </head>
 
 <body>
@@ -77,22 +82,18 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                   <div class="message-body">
-                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                    <a href="{{ route('profil') }}" class="d-flex align-items-center gap-2 dropdown-item">
                       <i class="ti ti-user fs-6"></i>
-                      <p class="mb-0 fs-3">My Profile</p>
+                      <p class="mb-0 fs-3">Ubah Profil</p>
                     </a>
                     <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
                       <i class="ti ti-mail fs-6"></i>
-                      <p class="mb-0 fs-3">My Account</p>
-                    </a>
-                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-list-check fs-6"></i>
-                      <p class="mb-0 fs-3">My Task</p>
+                      <p class="mb-0 fs-3">Ubah Akun</p>
                     </a>
                     {{-- <a href="#" class="btn btn-outline-primary mx-3 mt-2 d-block" id="btn-logout">Logout</a> --}}
                     <form class="mx-3" id="logoutForm" action="{{ route('logout') }}" method="POST">
                       @csrf
-                        <button type="button" class="btn btn-outline-primary mt-2 mb-2 d-block w-100" id="btn-logout" >Logout</button>
+                        <button type="button" class="btn btn-outline-primary mt-2 mb-2 d-block w-100" id="btn-logout" >Keluar</button>
                     </form>
                   </div>
                 </div>
@@ -111,20 +112,37 @@
   <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../assets/js/sidebarmenu.js"></script>
   <script src="../assets/js/app.min.js"></script>
-  <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
+  {{-- <script src="../assets/libs/simplebar/dist/simplebar.js"></script> --}}
+
+  <script src="{{ url('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ url('plugins/datatables-bs4/js/dataTables.bootstrap5.min.js') }}"></script>
+  <script src="{{ url('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+  <script src="{{ url('plugins/datatables-responsive/js/responsive.bootstrap5.min.js') }}"></script>
+
+  <script type="module">
+    import * as pdfjsLib from '../plugins/pdf.js/pdf.mjs';
+    import { GlobalWorkerOptions } from '../plugins/pdf.js/pdf.mjs'; 
+
+    GlobalWorkerOptions.workerSrc = '../plugins/pdf.js/pdf.worker.mjs';
+  </script>  
+
+  <script src="{{ url('plugins/turn.js/turn.min.js') }}"></script>
+  <script src="{{ url('plugins/turn.js/zoom.min.js') }}"></script>
+
+  {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.7.570/pdf.min.js"></script> --}}
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script type="text/javascript">
     document.getElementById('btn-logout').addEventListener('click', function (e) {
       e.preventDefault();
         Swal.fire({
-            title: 'Logout',
-            text: 'Anda yakin ingin keluar?',
+            title: 'Keluar',
+            text: 'Anda Yakin Ingin Keluar?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Ya, Logout',
+            confirmButtonText: 'Ya, Keluar',
             cancelButtonText: 'Batal'
         }).then((result) => {
             if (result.isConfirmed) {
@@ -135,6 +153,7 @@
         });
     });
   </script>
+@yield('js')
 </body>
 
 </html>
